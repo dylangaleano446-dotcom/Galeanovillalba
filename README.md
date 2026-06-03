@@ -5,9 +5,9 @@
 
 Integrantes:
 
-- {Apellido, Nombre} | [@username](https://github.com/username)
-- {Apellido, Nombre} | [@username](https://github.com/username)
-- {Apellido, Nombre} | [@username](https://github.com/username)
+- {Galeano, Dylan} | [@dylangaleano446-dotcom](https://github.com/username)
+- {Villalba, Santiago} | [@santiago25villalba-dotcom](https://github.com/username)
+- {Pasqualin, Valentin} | [@pascuaa07](https://github.com/username)
 - {Apellido, Nombre} | [@username](https://github.com/username)
 
 Proyecto institucional **E.E.S.T Nº4 de Berazategui**.
