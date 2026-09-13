@@ -51,21 +51,18 @@ $app->get('/productos/{id}', function ($request, $response, $args) use ($rendere
 $app->get('/create/productos', function ($request, $response) use ($renderer) {
   return $renderer->render($response, 'productos/store.php');
 });
-// Ruta POST para recibir los datos del formulario de productos
 $app->post('/productos', function ($request, $response) use ($renderer) {
-    // Obtener los datos enviados en el body del request (formulario)
-    $data = $request->getParsedBody();
+  
+  $data = $request->getParsedBody();
 
-    // Extraer los campos enviados
-    $nombre = $data['nombre'] ?? '';
-    $precio = $data['precio'] ?? '';
-    $descripcion = $data['descripcion'] ?? '';
+  $nombre = $data['nombre'] ?? '';
+  $precio = $data['precio'] ?? '';
+  $descripcion = $data['descripcion'] ?? '';
 
-    // Renderizar la vista pasando los datos del producto
-    return $renderer->render($response, 'productos/show_created.php', [
-        'nombre' => $nombre,
-        'precio' => $precio,
-        'descripcion' => $descripcion
-    ]);
+  return $renderer->render($response, 'productos/show_created.php', [
+      'nombre' => $nombre,
+      'precio' => $precio,
+      'descripcion' => $descripcion
+  ]);
 });
 return $app;
