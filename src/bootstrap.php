@@ -26,7 +26,7 @@ $renderer = new PhpRenderer(
   ["title" => "PDI | Slim Template 2026"]
 );
 
-// Ruta/Vista principal
+
 $app->get("/", function ($request, $response) use ($renderer) {
   return view($renderer, $response, "index.php");
 });
@@ -34,9 +34,28 @@ $app->get("/", function ($request, $response) use ($renderer) {
 $app->addErrorMiddleware($debug, true, true);
 
 
-// 1. Ruta para el listado de productos
 $app->get('/productos', function ($request, $response) use ($renderer) {
-  return $renderer->render($response, 'productos/index.php');
+   $productos = [
+      ['id' => 1, 'name' => 'Bolsa de Cemento 50kg', 'price' => 9800, 'descripcion' => 'Cemento Portland de alta resistencia'],
+      ['id' => 2, 'name' => 'Hierro del 8mm (Barra 12m)', 'price' => 14200, 'descripcion' => 'Acero aletado para estructuras de hormigón'],
+      ['id' => 3, 'name' => 'Ladrillo Hueco 12x18x33', 'price' => 650, 'descripcion' => 'Ladrillo cerámico para tabiquería y muros'],
+      ['id' => 4, 'name' => 'Arena Fina (Metro Cúbico)', 'price' => 22000, 'descripcion' => 'Arena lavada ideal para revoques y mezclas'],
+      ['id' => 5, 'name' => 'Cal Hidráulica 25kg', 'price' => 5400, 'descripcion' => 'Cal para albañilería y mampostería']
+  ];
+
+  
+  $queryParams = $request->getQueryParams();
+  $limit = $queryParams['limit'] ?? null;
+
+ 
+  if ($limit !== null && is_numeric($limit)) {
+      $productos = array_slice($productos, 0, (int)$limit);
+  }
+
+ 
+  return $renderer->render($response, 'productos/index.php', [
+      'productos' => $productos
+  ]);
 });
 
 // 2. Ruta para el detalle con parámetro {id}
