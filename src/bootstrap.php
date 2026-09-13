@@ -23,8 +23,8 @@ $app = AppFactory::create();
 
 // Crear el motor de plantillas
 $renderer = new PhpRenderer(
-  templatePath: __DIR__ . "/views",
-  attributes: ["title" => "PDI | Slim Template 2026"],
+  __DIR__ . '/views',
+  ["title" => "PDI | Slim Template 2026"]
 );
 
 // Ruta/Vista principal
@@ -34,4 +34,21 @@ $app->get("/", function ($request, $response) use ($renderer) {
 
 $app->addErrorMiddleware($debug, true, true);
 
+
+// 1. Ruta para el listado de productos
+$app->get('/productos', function ($request, $response) use ($renderer) {
+  return $renderer->render($response, 'productos/index.php');
+});
+
+// 2. Ruta para el detalle con parámetro {id}
+$app->get('/productos/{id}', function ($request, $response, $args) use ($renderer) {
+  return $renderer->render($response, 'productos/show.php', [
+      'id' => $args['id']
+  ]);
+});
+
+// 3. Ruta para la creación de productos
+$app->get('/create/productos', function ($request, $response) use ($renderer) {
+  return $renderer->render($response, 'productos/store.php');
+});
 return $app;
