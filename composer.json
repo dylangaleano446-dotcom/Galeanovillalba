@@ -18,5 +18,14 @@
       "./src/utils/view.php"
     ]
   },
-  "license": "MIT"
+  "license": "MIT",
+  "repositories": {
+    "packagist": {
+      "type": "composer",
+      "url": "http://repo.packagist.org"
+    }
+  },
+  "config": {
+    "secure-http": false
+  }
 }
