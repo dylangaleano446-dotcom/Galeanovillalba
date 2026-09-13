@@ -6,7 +6,6 @@ use Dotenv\Dotenv;
 
 require __DIR__ . '/../vendor/autoload.php';
 
-// Cargar variables de entorno desde el .env
 Dotenv::createImmutable(__DIR__ . '/..')->safeLoad();
 
 $env = $_ENV["APP_ENV"] ?? "prod";
