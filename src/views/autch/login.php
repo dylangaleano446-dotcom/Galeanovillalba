@@ -2,7 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Iniciar Sesión</title>
+    <title>iniciar sesion</title>
 </head>
 <body>
     <h1>Iniciar Sesión</h1>
@@ -16,6 +16,6 @@
         <button type="submit">Ingresar</button>
     </form>
     <br>
-    <a href="/auth/register">¿No tenés cuenta? Registrate</a>
+    <a href="/auth/register">si no tenes cuenta? Registrate</a>
 </body>
 </html>
