@@ -1,0 +1,11 @@
+<?php
+
+use Slim\App;
+use App\Controllers\AuthController;
+
+/** @var App $app */
+
+$app->get('/auth/register', [AuthController::class, 'registerView']);
+$app->post('/auth/register', [AuthController::class, 'register']);
+$app->get('/auth/login', [AuthController::class, 'loginView']);
+$app->post('/auth/login', [AuthController::class, 'login']);
