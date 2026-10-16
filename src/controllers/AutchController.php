@@ -1,49 +1,51 @@
 <?php
+
 namespace App\Controllers;
- 
+
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Slim\Views\PhpRenderer;
+use App\Services\AuthService;
 
 class AuthController {
-    private $renderer;
-public function __construct(PhpRenderer $renderer) {
+    private PhpRenderer $renderer;
+    private AuthService $service;
+
+    public function __construct(PhpRenderer $renderer) {
         $this->renderer = $renderer;
+        $this->service = new AuthService();
     }
+
     public function registerView(Request $request, Response $response): Response {
         return $this->renderer->render($response, 'auth/register.php');
     }
+
     public function register(Request $request, Response $response): Response {
         $data = $request->getParsedBody();
         $email = $data['email'] ?? '';
         $password = $data['password'] ?? '';
 
-        if (!empty($email) && !empty($password)) {
-            $pdo = getPDO();
-            $hash = password_hash($password, PASSWORD_DEFAULT);
+        $exito = $this->service->registrarUsuario($email, $password);
 
-            $stmt = $pdo->prepare("INSERT INTO usuarios (email, password) VALUES (?, ?)");
-            $stmt->execute([$email, $hash]);
-
+        if ($exito) {
             return $response->withHeader('Location', '/auth/login')->withStatus(302);
         }
 
         return $response->withHeader('Location', '/auth/register')->withStatus(302);
     }
+
     public function loginView(Request $request, Response $response): Response {
         return $this->renderer->render($response, 'auth/login.php');
     }
+
     public function login(Request $request, Response $response): Response {
         $data = $request->getParsedBody();
         $email = $data['email'] ?? '';
         $password = $data['password'] ?? '';
 
-        $pdo = getPDO();
-        $stmt = $pdo->prepare("SELECT * FROM usuarios WHERE email = ?");
-        $stmt->execute([$email]);
-        $user = $stmt->fetch();
+        $user = $this->service->autenticarUsuario($email, $password);
 
-        if ($user && password_verify($password, $user['password'])) {
+        if ($user) {
             if (session_status() !== PHP_SESSION_ACTIVE) {
                 session_start();
             }
