@@ -12,7 +12,10 @@
     "migrate": "php scripts/migrate.php",
     "serve": "php -S localhost:8000 -t public"
   },
-  "autoload": {
+ "autoload": {
+    "psr-4": {
+      "App\\": "src/"
+    },
     "files": [
       "./src/utils/html.php",
       "./src/utils/view.php"
